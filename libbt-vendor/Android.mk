@@ -78,7 +78,16 @@ else
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
 endif
 
+ifeq ($(QCOM_BT_USE_BTNV),true)
 LOCAL_CFLAGS += -DBT_NV_SUPPORT
+ifeq ($(QCPATH),)
+LOCAL_SHARED_LIBRARIES += libdl
+LOCAL_CFLAGS += -DBT_NV_SUPPORT_DL
+else
+LOCAL_SHARED_LIBRARIES += libbtnv
+endif
+endif
+
 LOCAL_CFLAGS += -Wno-unused-variable
 LOCAL_CFLAGS += -Wno-unused-label
 LOCAL_CFLAGS += -Wno-user-defined-warnings
