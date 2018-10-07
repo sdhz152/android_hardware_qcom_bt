@@ -63,8 +63,7 @@ endif #WIFI_BT_STATUS_SYNC
 
 LOCAL_SHARED_LIBRARIES := \
         libcutils \
-        liblog \
-        libbtnv
+        liblog
 
 LOCAL_HEADER_LIBRARIES := \
         libutils_headers
@@ -76,14 +75,9 @@ LOCAL_MODULE_OWNER := qcom
 
 LOCAL_VENDOR_MODULE := true
 
-ifeq ($(QCOM_BT_USE_BTNV),true)
+ifneq ($(QCPATH),)
 LOCAL_CFLAGS += -DBT_NV_SUPPORT
-ifeq ($(QCPATH),)
-LOCAL_SHARED_LIBRARIES += libdl
-LOCAL_CFLAGS += -DBT_NV_SUPPORT_DL
-else
 LOCAL_SHARED_LIBRARIES += libbtnv
-endif
 endif
 
 LOCAL_CFLAGS += -Wno-unused-variable
